@@ -16,11 +16,6 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.CreateMap<Stock, StockDTO>();
-});
 var app = builder.Build();
 
 

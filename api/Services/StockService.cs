@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.DTOs;
+using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,15 @@ namespace api.Services
         {
             _context = context;
         }
-        public async Task<List<Stock>> GetAllStocksAsync() => await _context.Stock.Include(s => s.Comments).ToListAsync();
+        // public async Task<List<Stock>> GetAllStocksAsync() => await _context.Stock.Include(s => s.Comments).ToListAsync();
+
+        public async Task<List<StockDTO>> GetAllStocksAsync()
+        {
+            var stocks = await _context.Stock.ToListAsync();
+
+
+            return stocks.Select(s => s.ToStockDTO()).ToList();
+        }
         public async Task<Stock?> GetStockByIdAsync(int id) => await _context.Stock.Include(s => s.Comments).FirstOrDefaultAsync(s => s.Id == id);
         public async Task AddStockAsync(Stock stock)
         {
