@@ -32,6 +32,19 @@ namespace api.Mappers
             };
         }
 
+        public static StockDTO FromStockDTO(this Stock stockModel)
+        {
+            return new StockDTO
+            {
+                Symbol = stockModel.Symbol,
+                CompanyName = stockModel.CompanyName,
+                Purchase = stockModel.Purchase,
+                LastDiv = stockModel.LastDiv,
+                Industry = stockModel.Industry,
+                MarketCap = stockModel.MarketCap
+            };
+        }
+
         public static StockSummaryDTO ToStockSummaryDTO(this Stock stock)
         {
             return new StockSummaryDTO

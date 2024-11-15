@@ -33,7 +33,7 @@ namespace api.Services
             var stockEntity = createStockDTO.ToStockEntity();
             _context.Stock.Add(stockEntity);
             await _context.SaveChangesAsync();
-            return stockEntity.ToStockDTO();
+            return stockEntity.FromStockDTO();
         }
         public async Task<bool> UpdateStockAsync(Stock stock)
         {
