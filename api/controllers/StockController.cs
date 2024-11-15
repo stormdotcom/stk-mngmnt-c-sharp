@@ -42,12 +42,13 @@ namespace api.controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Stock stock)
+        public async Task<IActionResult> Update(int id, StockDTO stock)
         {
-            if (id != stock.Id) return BadRequest();
+            if (id == 0) return BadRequest();
 
-            await _stockService.UpdateStockAsync(stock);
-            return NoContent();
+            var updatedStock = await _stockService.UpdateStockAsync(id, stock);
+            if (updatedStock == null) NotFound(new { message = $"Stock with ID {id} not found." });
+            return Ok(updatedStock);
         }
 
         [HttpDelete("{id}")]

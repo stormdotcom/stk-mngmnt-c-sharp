@@ -19,6 +19,20 @@ namespace api.Mappers
             };
         }
 
+        public static Stock FromStockDTO_ToStock(this StockDTO stockModel)
+        {
+            return new Stock
+            {
+                Id = stockModel.Id,
+                Symbol = stockModel.Symbol,
+                CompanyName = stockModel.CompanyName,
+                Purchase = stockModel.Purchase,
+                LastDiv = stockModel.LastDiv,
+                Industry = stockModel.Industry,
+                MarketCap = stockModel.MarketCap
+            };
+        }
+
         public static Stock ToStockEntity(this CreateStockDTO createStockDTO)
         {
             return new Stock
@@ -53,5 +67,6 @@ namespace api.Mappers
                 CompanyName = stock.CompanyName
             };
         }
+
     }
 }

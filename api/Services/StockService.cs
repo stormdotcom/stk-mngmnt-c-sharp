@@ -35,17 +35,24 @@ namespace api.Services
             await _context.SaveChangesAsync();
             return stockEntity.FromStockDTO();
         }
-        public async Task<bool> UpdateStockAsync(Stock stock)
+        public async Task<StockDTO> UpdateStockAsync(int id, StockDTO updatedStockDto)
         {
-            var exists = await _context.Stock.AnyAsync(s => s.Id == stock.Id);
-            if (!exists)
-            {
-                return false;
-            }
-            _context.Stock.Update(stock);
+
+            var existingStock = await _context.Stock.FindAsync(id);
+            if (existingStock == null) return null!;
+
+            existingStock.Symbol = updatedStockDto.Symbol;
+            existingStock.CompanyName = updatedStockDto.CompanyName;
+            existingStock.Purchase = updatedStockDto.Purchase;
+            existingStock.LastDiv = updatedStockDto.LastDiv;
+            existingStock.Industry = updatedStockDto.Industry;
+            existingStock.MarketCap = updatedStockDto.MarketCap;
+            _context.Stock.Update(existingStock);
 
             await _context.SaveChangesAsync();
-            return true;
+
+            return existingStock.ToStockDTO();
+
         }
         public async Task DeleteStockAsync(int id)
         {
