@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.DTOs;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace api.controllers
         {
             _stockService = stockservice;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -32,10 +34,10 @@ namespace api.controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Stock stock)
+        public async Task<IActionResult> Create(CreateStockDTO createStockDTO)
         {
-            await _stockService.AddStockAsync(stock);
-            return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock);
+            var stockDTO = await _stockService.AddStockAsync(createStockDTO);
+            return CreatedAtAction(nameof(GetById), new { id = stockDTO.Id }, stockDTO);
         }
 
         [HttpPut("{id}")]

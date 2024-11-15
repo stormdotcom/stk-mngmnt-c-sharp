@@ -6,6 +6,7 @@ using api.Data;
 using api.DTOs;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Services
@@ -27,11 +28,12 @@ namespace api.Services
             return stocks.Select(s => s.ToStockDTO()).ToList();
         }
         public async Task<Stock?> GetStockByIdAsync(int id) => await _context.Stock.Include(s => s.Comments).FirstOrDefaultAsync(s => s.Id == id);
-        public async Task AddStockAsync(Stock stock)
+        public async Task<StockDTO> AddStockAsync(CreateStockDTO createStockDTO)
         {
-            _context.Stock.Add(stock);
+            var stockEntity = createStockDTO.ToStockEntity();
+            _context.Stock.Add(stockEntity);
             await _context.SaveChangesAsync();
-
+            return stockEntity.ToStockDTO();
         }
         public async Task<bool> UpdateStockAsync(Stock stock)
         {

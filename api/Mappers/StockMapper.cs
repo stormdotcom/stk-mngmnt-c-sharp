@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.DTOs;
 using api.Models;
 
@@ -13,9 +9,26 @@ namespace api.Mappers
         {
             return new StockDTO
             {
-                Id = stockModel.id,
+                Id = stockModel.Id,
                 Symbol = stockModel.Symbol,
-                CompanyName = stockModel.CompanyName
+                CompanyName = stockModel.CompanyName,
+                Purchase = stockModel.Purchase,
+                LastDiv = stockModel.LastDiv,
+                Industry = stockModel.Industry,
+                MarketCap = stockModel.MarketCap
+            };
+        }
+
+        public static Stock ToStockEntity(this CreateStockDTO createStockDTO)
+        {
+            return new Stock
+            {
+                Symbol = createStockDTO.Symbol,
+                CompanyName = createStockDTO.CompanyName,
+                Purchase = createStockDTO.Purchase,
+                LastDiv = createStockDTO.LastDiv,
+                Industry = createStockDTO.Industry,
+                MarketCap = createStockDTO.MarketCap
             };
         }
     }
