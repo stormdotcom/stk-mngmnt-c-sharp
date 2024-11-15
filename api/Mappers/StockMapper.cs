@@ -31,5 +31,14 @@ namespace api.Mappers
                 MarketCap = createStockDTO.MarketCap
             };
         }
+
+        public static StockSummaryDTO ToStockSummaryDTO(this Stock stock)
+        {
+            return new StockSummaryDTO
+            {
+                Symbol = stock.Symbol,
+                CompanyName = stock.CompanyName
+            };
+        }
     }
 }

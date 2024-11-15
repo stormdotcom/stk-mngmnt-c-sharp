@@ -69,5 +69,10 @@ namespace api.Services
 
             return true;
         }
+
+        public async Task<List<StockSummaryDTO>> GetSockSummaryAsync()
+        {
+            return await _context.Stock.Select(s => s.ToStockSummaryDTO()).ToListAsync();
+        }
     }
 }

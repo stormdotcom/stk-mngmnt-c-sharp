@@ -55,5 +55,12 @@ namespace api.controllers
             await _stockService.DeleteStockAsync(id);
             return NoContent();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStockSummary()
+        {
+            var stocks = await _stockService.GetSockSummaryAsync();
+            return Ok(stocks);
+        }
     }
 }
