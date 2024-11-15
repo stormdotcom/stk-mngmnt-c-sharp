@@ -26,6 +26,7 @@ namespace api.controllers
             var stocks = await _stockService.GetAllStocksAsync();
             return Ok(stocks);
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -56,7 +57,7 @@ namespace api.controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("summaries")]
         public async Task<IActionResult> GetStockSummary()
         {
             var stocks = await _stockService.GetSockSummaryAsync();
